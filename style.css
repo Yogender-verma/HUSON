@@ -1,0 +1,335 @@
+/* -------------- Global Styles -------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #b6f0c4, #b8e2ff, #fff7b2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 20px;
+    transition: 0.3s ease;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #2c3e50, #34495e, #1abc9c);
+    color: #fff;
+}
+
+/* -------------- Glass Box -------------- */
+.glass-box {
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.glass-box:hover {
+    transform: translateY(-5px);
+}
+
+/* -------------- Header -------------- */
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2b2b2b;
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+/* -------------- Cards Section -------------- */
+.cards {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 260px;
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.card i {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+
+.card i:hover {
+    transform: translateY(-3px) scale(1.2);
+}
+
+.card h2, .donation-card h3, .stat-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #2b2b2b;
+}
+
+.card p, .donation-card p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* -------------- Containers -------------- */
+.donor-container, .ngo-container, .dashboard-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.donor-left, .ngo-left, .dashboard-left,
+.donor-right, .ngo-right, .dashboard-right {
+    flex: 1 1 350px;
+}
+
+/* -------------- Forms -------------- */
+form input, form select, form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.2);
+    outline: none;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.35);
+    transition: 0.3s ease;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    background: rgba(255,255,255,0.5);
+}
+
+/* -------------- Buttons -------------- */
+button.btn-submit, button.btn-back, #darkToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #2b2b2b;
+    transition: 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+button.btn-submit:hover, button.btn-back:hover, #darkToggle:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* -------------- Stats & Donation Cards -------------- */
+.stats-grid, .donation-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.stat-card, .donation-card {
+    width: 260px;
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.stat-card:hover, .donation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.donation-card .btn-submit {
+    margin-top: 10px;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+/* -------------- Search & Sort Controls -------------- */
+.ngo-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.ngo-controls input, .ngo-controls select {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.35);
+    transition: 0.3s ease;
+}
+
+.ngo-controls input:focus, .ngo-controls select:focus {
+    background: rgba(255,255,255,0.5);
+}
+
+/* -------------- NGO Requests (on Donor Page) -------------- */
+.ngo-requests {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.ngo-requests li {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.ngo-requests li strong {
+    color: #2b2b2b;
+}
+
+.btn-donate {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: 0.3s;
+}
+
+.btn-donate:hover {
+    background: #45a049;
+}
+
+.donated {
+    opacity: 0.6;
+    background: rgba(100, 255, 100, 0.2);
+}
+
+.donated-label {
+    color: green;
+    font-weight: bold;
+}
+
+/* -------------- Toast Messages ---------- */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.9);
+    color: #2b2b2b;
+    padding: 12px 25px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* -------------- Responsive -------------- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
+    .cards, .donor-container, .ngo-container, .dashboard-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card, .stat-card, .donation-card, .donor-left, .donor-right, .ngo-left, .ngo-right, .dashboard-left, .dashboard-right {
+        width: 85%;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* -------------- Footer -------------- */
+footer.footer {
+    width: 90%;
+    max-width: 1000px;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.footer-text h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.footer-text p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+footer button#darkToggle {
+    margin-top: 10px;
+}

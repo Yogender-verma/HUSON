@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Page</title>
+    <link rel="stylesheet" href="donor.css">
+</head>
+<body>
+
+<header>
+    <h1>Thank You for Donating!</h1>
+    <p>Your contributions help communities in need. Every donation counts.</p>
+</header>
+
+<div class="donor-container">
+
+    <!-- Left side: Donor Form -->
+    <div class="donor-left glass-box">
+        <form id="donorForm">
+            <h2>Submit Your Donation</h2>
+
+            <input type="text" id="name" placeholder="Your Name" required>
+
+            <button type="button" id="cameraBtn" class="btn-submit">📸 Detect Item Type</button>
+
+            <select id="itemType" required>
+                <option value="">Select Item Type</option>
+                <option value="Food">Food</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+
+            <input type="text" id="location" placeholder="Location (or allow detection)">
+            <button type="button" id="detectLocation" class="btn-submit">📍 Detect My Location</button>
+
+            <input type="date" id="expiryDate" placeholder="Expiry Date (if any)">
+            <textarea id="notes" rows="3" placeholder="Notes (optional)"></textarea>
+
+            <button type="submit" class="btn-submit">Submit Donation</button>
+            <button type="button" class="btn-back" id="backBtn">← Back</button>
+        </form>
+    </div>
+
+    <!-- Right side: NGO Requests -->
+    <div class="donor-right glass-box">
+        <h2>NGO Requests</h2>
+
+        <!-- Search + Sort -->
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Search NGO or location...">
+            <select id="sortSelect">
+                <option value="recent">Sort by: Most Recent</option>
+                <option value="urgency">Sort by: Urgency</option>
+                <option value="location">Sort by: Location</option>
+                <option value="item">Sort by: Item Type</option>
+            </select>
+        </div>
+
+        <div id="ngoRequests"></div>
+    </div>
+</div>
+
+<footer class="glass-box" style="margin-top:30px;">
+    <button id="darkToggle">🌙 Dark Mode</button>
+</footer>
+
+<script src="donor.js"></script>
+</body>
+</html>

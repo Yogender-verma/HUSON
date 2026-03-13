@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUSON - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="index-page">
+  <div class="index-container">
+
+    <header class="glass-box">
+      <h1>Welcome to HUSON</h1>
+      <p>Holistic Urban Surplus Optimization Network</p>
+      <p>Connect surplus donors with NGOs and communities efficiently!</p>
+    </header>
+
+    <!-- Navigation Cards -->
+    <div class="cards">
+      <!-- Donor Card -->
+      <div class="card" onclick="location.href='donor.html'">
+        <i class="ri-hand-heart-line"></i>
+        <h2>Donate Surplus</h2>
+        <p>Share food, clothes, books, and other items to help communities in need.</p>
+      </div>
+
+      <!-- NGO Card -->
+      <div class="card" onclick="location.href='ngo.html'">
+        <i class="ri-community-line"></i>
+        <h2>View Donations</h2>
+        <p>NGOs can see available donations and claim them for distribution.</p>
+      </div>
+
+      <!-- Dashboard Card -->
+      <div class="card" onclick="location.href='dashboard.html'">
+        <i class="ri-dashboard-3-line"></i>
+        <h2>Dashboard</h2>
+        <p>Track total donations, claimed items, and monitor impact across the city.</p>
+      </div>
+    </div>
+
+    <!-- Optional Motivational Quote -->
+    <div class="glass-box" style="margin-top: 20px; padding:15px;">
+      <p id="randomQuote"></p>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkToggle" class="btn-darkmode">
+      <i class="ri-moon-line"></i> Dark Mode
+    </button>
+
+  </div>
+
+  <script>
+    // Random Motivational Quotes
+    const quotes = [
+      "Your surplus can change a life!",
+      "Sharing is caring.",
+      "Every little help counts.",
+      "Be the reason someone smiles today."
+    ];
+    document.addEventListener("DOMContentLoaded", () => {
+      const quoteEl = document.getElementById("randomQuote");
+      if (quoteEl) quoteEl.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+      // Load saved dark mode state
+      if (localStorage.getItem("huson-dark-mode") === "true") {
+        document.body.classList.add("dark-mode");
+      }
+    });
+
+    // Dark Mode Toggle with memory
+    const darkBtn = document.getElementById("darkToggle");
+    if (darkBtn) darkBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("huson-dark-mode", document.body.classList.contains("dark-mode"));
+    });
+  </script>
+
+</body>
+</html>
