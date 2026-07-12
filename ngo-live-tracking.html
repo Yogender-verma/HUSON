@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Tracking | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='ngo.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='ngo-all-donations.html'"><i class="ri-gift-line"></i> Available Donations</li>
+            <li onclick="window.location.href='ngo-pending-requests.html'"><i class="ri-file-list-3-line"></i> My Requests</li>
+            <li class="active" onclick="window.location.href='ngo-live-tracking.html'"><i class="ri-truck-line"></i> Pickups</li>
+            <li onclick="window.location.href='ngo-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='ngo-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Live <span class="highlight-text">Tracking</span></h1>
+                <p>Track your active delivery from donor to your location.</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Tracking ID (e.g. TRK-892)">
+                </div>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=NGO&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem; border-color: var(--accent-color); color: var(--accent-color);">All Pickups (10)</button>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">In Transit (5)</button>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Confirmed (5)</button>
+        </div>
+
+        <div id="trackingList" style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- 10 Tracking Cards will be injected here -->
+        </div>
+
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        const pickups = [
+            { id: "TRK-101", item: "Oil", status: "In Transit", donor: "Local Grocer" },
+            { id: "TRK-102", item: "Tomato", status: "In Transit", donor: "Farm Fresh" },
+            { id: "TRK-103", item: "Dry Fruits", status: "In Transit", donor: "Health Store" },
+            { id: "TRK-104", item: "T-Shirts", status: "In Transit", donor: "Clothing Drive" },
+            { id: "TRK-105", item: "Chairs", status: "In Transit", donor: "Office Surplus" },
+            { id: "TRK-106", item: "Spectacles", status: "Confirmed", donor: "Vision Care" },
+            { id: "TRK-107", item: "Fruits", status: "Confirmed", donor: "Orchard Hill" },
+            { id: "TRK-108", item: "Vegetables", status: "Confirmed", donor: "City Harvest" },
+            { id: "TRK-109", item: "Shirts", status: "Confirmed", donor: "Community Center" },
+            { id: "TRK-110", item: "Pants", status: "Confirmed", donor: "Thrift Shop" }
+        ];
+
+        const listContainer = document.getElementById("trackingList");
+
+        pickups.forEach(pickup => {
+            let timelineHTML = "";
+            let badgeHTML = "";
+
+            if (pickup.status === "In Transit") {
+                badgeHTML = `<span class="status-badge info-bg" style="display:inline-block; margin-bottom: 5px;">In Transit</span><p style="margin: 0; color: #fff; font-size: 0.9rem;">ETA: 15 mins</p>`;
+                timelineHTML = `
+                    <div class="timeline-item completed">
+                        <div class="timeline-content"><h4>Pickup Confirmed</h4><p>Donor has accepted.</p></div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-content"><h4>Driver Assigned</h4><p>Volunteer is en route.</p></div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-content"><h4>Items Picked Up</h4><p>Driver collected the items.</p></div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-content"><h4>In Transit</h4><p>Driver is on the way to you.</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content"><h4>Delivered</h4><p>Pending handover.</p></div>
+                    </div>
+                `;
+            } else {
+                badgeHTML = `<span class="status-badge warning-bg" style="display:inline-block; margin-bottom: 5px;">Confirmed</span><p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Awaiting Driver</p>`;
+                timelineHTML = `
+                    <div class="timeline-item active">
+                        <div class="timeline-content"><h4>Pickup Confirmed</h4><p>Donor has accepted and is preparing items.</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content"><h4>Driver Assigned</h4><p>Waiting for volunteer.</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content"><h4>Items Picked Up</h4><p>Pending.</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content"><h4>In Transit</h4><p>Pending.</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content"><h4>Delivered</h4><p>Pending.</p></div>
+                    </div>
+                `;
+            }
+
+            const driverHTML = pickup.status === "In Transit" ? `
+                <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <img src="https://ui-avatars.com/api/?name=Driver&background=3498db&color=fff" style="width: 40px; height: 40px; border-radius: 50%;" alt="Driver">
+                        <div>
+                            <h4 style="margin: 0; color: #fff;">Volunteer Driver</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">4.9 ★</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" style="border-radius: 50%; width: 35px; height: 35px; padding: 0;"><i class="ri-phone-fill"></i></button>
+                    </div>
+                </div>
+            ` : "";
+
+            const cardHTML = `
+                <div class="tracking-container glass-box" style="padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 10px;">
+                        <div>
+                            <h3 style="margin: 0 0 5px 0;">${pickup.id} - <span style="color: var(--primary-color);">${pickup.item}</span></h3>
+                            <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">From: <strong>${pickup.donor}</strong> &rarr; To: <strong>Your Location</strong></p>
+                        </div>
+                        <div style="text-align: right;">
+                            ${badgeHTML}
+                        </div>
+                    </div>
+                    
+                    <div class="timeline" style="margin-top: 20px; margin-bottom: 0;">
+                        ${timelineHTML}
+                    </div>
+
+                    ${driverHTML}
+                </div>
+            `;
+            listContainer.innerHTML += cardHTML;
+        });
+    </script>
+</body>
+</html>

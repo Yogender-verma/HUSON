@@ -3,71 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donor Page</title>
-    <link rel="stylesheet" href="donor.css">
+    <title>Dashboard | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body>
+<body class="app-layout">
 
-<header>
-    <h1>Thank You for Donating!</h1>
-    <p>Your contributions help communities in need. Every donation counts.</p>
-</header>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Urban Surplus Optimization</div>
+        
+                <ul class="sidebar-nav">
+            <li class="active" onclick="window.location.href='donor.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='donor-donation.html'"><i class="ri-hand-heart-line"></i> Donate</li>
+            <li onclick="window.location.href='donor-pending-requests.html'"><i class="ri-history-line"></i> Donation Requests</li>
+            <li onclick="window.location.href='donor-live-tracking.html'"><i class="ri-truck-line"></i> Pickup Requests</li>
+            <li onclick="window.location.href='donor-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
 
-<div class="donor-container">
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='donor-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'" style="color: #e74c3c;"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
 
-    <!-- Left side: Donor Form -->
-    <div class="donor-left glass-box">
-        <form id="donorForm">
-            <h2>Submit Your Donation</h2>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="welcome-msg">
+                <h2>Welcome back, Yogendar 👋</h2>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search donations...">
+                </div>
+                <div class="notification-icon">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </header>
 
-            <input type="text" id="name" placeholder="Your Name" required>
-
-            <button type="button" id="cameraBtn" class="btn-submit">📸 Detect Item Type</button>
-
-            <select id="itemType" required>
-                <option value="">Select Item Type</option>
-                <option value="Food">Food</option>
-                <option value="Clothes">Clothes</option>
-                <option value="Books">Books</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <input type="number" id="quantity" placeholder="Quantity" min="1" required>
-
-            <input type="text" id="location" placeholder="Location (or allow detection)">
-            <button type="button" id="detectLocation" class="btn-submit">📍 Detect My Location</button>
-
-            <input type="date" id="expiryDate" placeholder="Expiry Date (if any)">
-            <textarea id="notes" rows="3" placeholder="Notes (optional)"></textarea>
-
-            <button type="submit" class="btn-submit">Submit Donation</button>
-            <button type="button" class="btn-back" id="backBtn">← Back</button>
-        </form>
-    </div>
-
-    <!-- Right side: NGO Requests -->
-    <div class="donor-right glass-box">
-        <h2>NGO Requests</h2>
-
-        <!-- Search + Sort -->
-        <div class="filters">
-            <input type="text" id="searchInput" placeholder="Search NGO or location...">
-            <select id="sortSelect">
-                <option value="recent">Sort by: Most Recent</option>
-                <option value="urgency">Sort by: Urgency</option>
-                <option value="location">Sort by: Location</option>
-                <option value="item">Sort by: Item Type</option>
-            </select>
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card glass-box">
+                <div class="metric-icon"><i class="ri-bar-chart-box-line"></i></div>
+                <div class="metric-info">
+                    <p>TOTAL DONATIONS</p>
+                    <h3>1,284</h3>
+                </div>
+            </div>
+            <div class="metric-card glass-box">
+                <div class="metric-icon" style="color: #2ecc71; background: rgba(46, 204, 113, 0.1);"><i class="ri-leaf-line"></i></div>
+                <div class="metric-info">
+                    <p>FOOD SAVED (KG)</p>
+                    <h3>4,920</h3>
+                </div>
+            </div>
+            <div class="metric-card glass-box">
+                <div class="metric-icon" style="color: #3498db; background: rgba(52, 152, 219, 0.1);"><i class="ri-team-line"></i></div>
+                <div class="metric-info">
+                    <p>NGOS HELPED</p>
+                    <h3>42</h3>
+                </div>
+            </div>
+            <div class="metric-card glass-box">
+                <div class="metric-icon" style="color: #e74c3c; background: rgba(231, 76, 60, 0.1);"><i class="ri-error-warning-line"></i></div>
+                <div class="metric-info">
+                    <p>PENDING PICKUPS</p>
+                    <h3>12</h3>
+                </div>
+            </div>
         </div>
 
-        <div id="ngoRequests"></div>
-    </div>
-</div>
+        <!-- 2-Column Dashboard Grid -->
+        <div class="dashboard-layout">
+            
+            <!-- Left Column -->
+            <div class="dash-left">
+                
 
-<footer class="glass-box" style="margin-top:30px;">
-    <button id="darkToggle">🌙 Dark Mode</button>
-</footer>
+                <!-- Donation Activity Chart -->
+                <div class="dash-card glass-box">
+                    <div class="dash-card-header space-between">
+                        <h3>Donation Activity</h3>
+                        <span class="badge badge-pending">Last 30 Days</span>
+                    </div>
+                    <div style="position: relative; height: 300px; width: 100%; margin-top: 20px;">
+                        <canvas id="donationChart"></canvas>
+                    </div>
+                </div>
 
-<script src="donor.js"></script>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="dash-right">
+                
+                <!-- Today's Impact -->
+                <div class="dash-card dash-impact">
+                    <h3>Today's Impact</h3>
+                    
+                    <div class="impact-row">
+                        <div class="impact-icon"><i class="ri-restaurant-line"></i></div>
+                        <div class="impact-text">Meals Saved</div>
+                        <div class="impact-value">142</div>
+                    </div>
+                    <div class="impact-row">
+                        <div class="impact-icon"><i class="ri-delete-bin-line"></i></div>
+                        <div class="impact-text">Waste Prevented</div>
+                        <div class="impact-value">58kg</div>
+                    </div>
+                    <div class="impact-row">
+                        <div class="impact-icon"><i class="ri-cloud-windy-line"></i></div>
+                        <div class="impact-text">CO2 Saved</div>
+                        <div class="impact-value">12kg</div>
+                    </div>
+
+                    <div class="progress-wrapper">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 72%;"></div></div>
+                        <p class="text-xs">72% of weekly goal achieved</p>
+                    </div>
+                </div>
+
+                <!-- Nearby NGOs -->
+                <div class="dash-card glass-box">
+                    <div class="dash-card-header space-between">
+                        <h3>Nearby NGOs</h3>
+                        <i class="ri-map-2-line text-muted"></i>
+                    </div>
+                    <div class="list-item glass-box-inner">
+                        <div class="avatar-circle">CH</div>
+                        <div>
+                            <h4>City Hope</h4>
+                            <p class="text-xs text-muted">1.2 km away</p>
+                        </div>
+                    </div>
+                    <div class="list-item glass-box-inner">
+                        <div class="avatar-circle">SJ</div>
+                        <div>
+                            <h4>St. Jude Community</h4>
+                            <p class="text-xs text-muted">2.5 km away</p>
+                        </div>
+                    </div>
+                    <div class="list-item glass-box-inner">
+                        <div class="avatar-circle">GV</div>
+                        <div>
+                            <h4>Green Valley</h4>
+                            <p class="text-xs text-muted">3.5 km away</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('donationChart').getContext('2d');
+            
+            // Create a gradient for the chart
+            let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(155, 81, 224, 0.8)');   
+            gradient.addColorStop(1, 'rgba(155, 81, 224, 0.1)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['30 Days Ago', '25 Days Ago', '20 Days Ago', '15 Days Ago', '10 Days Ago', '5 Days Ago', 'Today'],
+                    datasets: [{
+                        label: 'Donations Made',
+                        data: [12, 19, 15, 25, 22, 30, 45],
+                        borderColor: '#9b51e0',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#9b51e0',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleFont: { family: 'Inter', size: 13 },
+                            bodyFont: { family: 'Inter', size: 14, weight: 'bold' },
+                            padding: 10,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.5)',
+                                font: { family: 'Inter' }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.5)',
+                                font: { family: 'Inter' }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

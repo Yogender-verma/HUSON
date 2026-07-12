@@ -15,18 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ==================== DARK MODE ====================
-const darkBtn = document.getElementById("darkToggle");
-document.addEventListener("DOMContentLoaded", () => {
-  const darkModeEnabled = localStorage.getItem("huson-dark-mode");
-  if (darkModeEnabled === "true") document.body.classList.add("dark-mode");
-});
-if (darkBtn) {
-  darkBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("huson-dark-mode", document.body.classList.contains("dark-mode"));
-  });
-}
+
 
 // ==================== TOAST ====================
 function showToast(message, color = "#2ecc71") {

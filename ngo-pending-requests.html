@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Requests | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='ngo.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='ngo-all-donations.html'"><i class="ri-gift-line"></i> Available Donations</li>
+            <li class="active" onclick="window.location.href='ngo-pending-requests.html'"><i class="ri-file-list-3-line"></i> My Requests</li>
+            <li onclick="window.location.href='ngo-live-tracking.html'"><i class="ri-truck-line"></i> Pickups</li>
+            <li onclick="window.location.href='ngo-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='ngo-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Pending <span class="highlight-text">Requests</span></h1>
+                <p>Track the status of the supplies you have requested.</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search requests...">
+                </div>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=NGO&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <!-- Filters (Mock) -->
+        <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem; border-color: var(--warning-color); color: var(--warning-color);">Pending (3)</button>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Processing (0)</button>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Confirmed (0)</button>
+        </div>
+
+        <!-- Donations Grid reused for requests -->
+        <div class="nearby-grid" id="requestsGrid">
+            <!-- Items injected here -->
+        </div>
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Array of 3 specific requests
+        const mockRequests = [
+            { img: "img/rice.png", badge: "Awaiting Donor", name: "Raw White Rice", desc: "Urgent need for staples", weight: "50 kg", date: "Requested Yesterday" },
+            { img: "img/potatoes.png", badge: "Awaiting Donor", name: "Fresh Potatoes", desc: "For community kitchen", weight: "30 kg", date: "Requested Yesterday" },
+            { img: "img/tomatoes.png", badge: "Awaiting Donor", name: "Red Tomatoes", desc: "Essential vegetables", weight: "20 kg", date: "Requested Yesterday" }
+        ];
+
+        let savedRequests = JSON.parse(localStorage.getItem('myCustomRequests')) || [];
+        const allRequests = [...savedRequests, ...mockRequests];
+
+        const grid = document.getElementById("requestsGrid");
+        
+        for(let i = 0; i < allRequests.length; i++) {
+            const req = allRequests[i];
+            const cardHTML = `
+                <div class="img-card glass-box">
+                    <div class="img-wrap" style="height: 150px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center;">
+                        ${req.img ? `<img src="${req.img}" alt="${req.name}" style="width: 100%; height: 100%; object-fit: cover;">` : `<i class="ri-box-3-line" style="font-size: 4rem; color: var(--primary-color);"></i>`}
+                        <span class="img-badge" style="background: var(--warning-color); color: #000;"><i class="ri-time-line"></i> ${req.badge}</span>
+                    </div>
+                    <div class="img-content">
+                        <div class="img-row">
+                            <div>
+                                <h4>${req.name}</h4>
+                                <p>${req.desc}</p>
+                            </div>
+                            <div class="text-right">
+                                <h4 class="warning-text">${req.weight}</h4>
+                            </div>
+                        </div>
+                        <div class="img-location" style="color: var(--text-muted);"><i class="ri-calendar-event-line"></i> ${req.date}</div>
+                        <div class="img-actions">
+                            <button class="btn-secondary w-full" onclick="showToast('Reminder sent!')">Send Reminder</button>
+                            <button class="btn-secondary btn-icon" style="color: var(--error-color); border-color: var(--error-color);"><i class="ri-close-line"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.innerHTML += cardHTML;
+        }
+    </script>
+</body>
+</html>

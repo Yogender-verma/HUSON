@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Urban Surplus Optimization</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='donor.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li class="active" onclick="window.location.href='donor-donation.html'"><i class="ri-hand-heart-line"></i> Donate</li>
+            <li onclick="window.location.href='donor-pending-requests.html'"><i class="ri-history-line"></i> Donation Requests</li>
+            <li onclick="window.location.href='donor-live-tracking.html'"><i class="ri-truck-line"></i> Pickup Requests</li>
+            <li onclick="window.location.href='donor-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='donor-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'" style="color: #e74c3c;"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search donations...">
+                </div>
+                <div class="notification-icon">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </header>
+
+
+
+        <!-- 2-Column Dashboard Grid -->
+        <div class="dashboard-layout">
+            
+            <!-- Left Column -->
+            <div class="dash-left">
+                
+                <!-- Create Donation Form -->
+                <div class="dash-card glass-box">
+                    <div class="dash-card-header">
+                        <div>
+                            <h3>Create New Donation</h3>
+                            <p class="text-sm text-muted">Log surplus food items for immediate pickup and redistribution.</p>
+                        </div>
+                    </div>
+                    
+                    <form id="newDonationForm" class="donation-form">
+                        <div class="form-group">
+                            <label>Product Type</label>
+                            <select id="productType">
+                                <option>Food</option>
+                                <option>Clothes</option>
+                                <option>Medicines</option>
+                                <option>Essentials</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" id="itemName" placeholder="e.g. 50 Fresh Vegetable Sandwiches">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Category / Condition</label>
+                                <select id="itemCategory">
+                                    <option>Cooked Meals</option>
+                                    <option>Raw Ingredients</option>
+                                    <option>Packaged Food</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity (Approx kg/units)</label>
+                                <input type="text" id="itemQuantity" placeholder="e.g. 15kg or 50 units">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expiry / Best Before (if applicable)</label>
+                                <input type="datetime-local">
+                            </div>
+                            <div class="form-group">
+                                <label>Pickup Address</label>
+                                <input type="text" placeholder="Current Location or Main Hub">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Upload Image</label>
+                            <input type="file" id="imageUpload" accept="image/png, image/jpeg" style="display: none;">
+                            <div class="upload-box" id="uploadBoxTrigger" style="cursor: pointer;">
+                                <i class="ri-cloud-upload-line" id="uploadIcon"></i>
+                                <p id="uploadText">Drag and drop images here, or <span style="color: var(--accent-color); text-decoration: underline;">browse files</span></p>
+                                <p class="text-xs text-muted" id="uploadSubText">PNG, JPG up to 10MB</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Special Notes</label>
+                            <textarea rows="3" placeholder="Add any specific details, handling instructions, or pickup notes..."></textarea>
+                        </div>
+
+                        <button type="button" id="postDonationBtn" class="btn-primary w-full" style="font-size: 1.1rem; padding: 12px;"><i class="ri-send-plane-line"></i> Post Donation</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productType = document.getElementById('productType');
+            const itemName = document.getElementById('itemName');
+            const itemCategory = document.getElementById('itemCategory');
+            const itemQuantity = document.getElementById('itemQuantity');
+            
+            const optionsMap = {
+                'Food': {
+                    placeholderName: 'e.g. 50 Fresh Vegetable Sandwiches',
+                    placeholderQty: 'e.g. 15kg or 50 units',
+                    categories: ['Cooked Meals', 'Raw Ingredients', 'Packaged Food']
+                },
+                'Clothes': {
+                    placeholderName: 'e.g. 10 Winter Jackets, Men\'s T-Shirts',
+                    placeholderQty: 'e.g. 2 bags or 30 pieces',
+                    categories: ['New', 'Gently Used', 'Needs Minor Repair']
+                },
+                'Medicines': {
+                    placeholderName: 'e.g. Paracetamol 500mg, Bandages',
+                    placeholderQty: 'e.g. 5 boxes or 100 tablets',
+                    categories: ['Over the Counter', 'Prescription', 'First Aid / Supplies']
+                },
+                'Essentials': {
+                    placeholderName: 'e.g. Soap, Toothpaste, Blankets',
+                    placeholderQty: 'e.g. 10 kits or 20 items',
+                    categories: ['Hygiene Kits', 'Bedding', 'Cleaning Supplies']
+                },
+                'Other': {
+                    placeholderName: 'e.g. School Books, Toys',
+                    placeholderQty: 'e.g. 5 boxes',
+                    categories: ['Books / Stationery', 'Toys', 'Miscellaneous']
+                }
+            };
+
+            if(productType) {
+                productType.addEventListener('change', function() {
+                    const selected = this.value;
+                    const config = optionsMap[selected];
+                    if(config) {
+                        itemName.placeholder = config.placeholderName;
+                        itemQuantity.placeholder = config.placeholderQty;
+                        
+                        itemCategory.innerHTML = '';
+                        config.categories.forEach(cat => {
+                            const opt = document.createElement('option');
+                            opt.value = cat;
+                            opt.textContent = cat;
+                            itemCategory.appendChild(opt);
+                        });
+                    }
+                });
+            }
+
+            // Image Upload Logic
+            const uploadBoxTrigger = document.getElementById('uploadBoxTrigger');
+            const imageUpload = document.getElementById('imageUpload');
+            const uploadText = document.getElementById('uploadText');
+            const uploadSubText = document.getElementById('uploadSubText');
+            const uploadIcon = document.getElementById('uploadIcon');
+
+            if (uploadBoxTrigger && imageUpload) {
+                uploadBoxTrigger.addEventListener('click', function() {
+                    imageUpload.click();
+                });
+
+                imageUpload.addEventListener('change', function() {
+                    if (this.files && this.files.length > 0) {
+                        const fileName = this.files[0].name;
+                        uploadText.innerHTML = `<strong style="color: var(--accent-color);">${fileName}</strong> selected`;
+                        uploadSubText.textContent = "Click to change file";
+                        uploadIcon.className = "ri-checkbox-circle-line";
+                        uploadIcon.style.color = "#2ecc71";
+                    } else {
+                        uploadText.innerHTML = 'Drag and drop images here, or <span style="color: var(--accent-color); text-decoration: underline;">browse files</span>';
+                        uploadSubText.textContent = "PNG, JPG up to 10MB";
+                        uploadIcon.className = "ri-cloud-upload-line";
+                        uploadIcon.style.color = "";
+                    }
+                });
+            }
+
+            // Post Donation Button Logic
+            const postDonationBtn = document.getElementById('postDonationBtn');
+            const newDonationForm = document.getElementById('newDonationForm');
+            const toast = document.getElementById('toast');
+
+            if (postDonationBtn && newDonationForm && toast) {
+                postDonationBtn.addEventListener('click', function() {
+                    // Show toast notification
+                    toast.textContent = "Donation posted successfully! Waiting for an NGO to accept.";
+                    toast.className = "toast show";
+                    
+                    // Reset form and upload box UI
+                    newDonationForm.reset();
+                    if(uploadText) {
+                        uploadText.innerHTML = 'Drag and drop images here, or <span style="color: var(--accent-color); text-decoration: underline;">browse files</span>';
+                        uploadSubText.textContent = "PNG, JPG up to 10MB";
+                        uploadIcon.className = "ri-cloud-upload-line";
+                        uploadIcon.style.color = "";
+                    }
+
+                    // Hide toast after 3 seconds
+                    setTimeout(function() {
+                        toast.className = toast.className.replace("show", "");
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

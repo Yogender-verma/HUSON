@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='donor.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='donor-donation.html'"><i class="ri-hand-heart-line"></i> Donate</li>
+            <li onclick="window.location.href='donor-pending-requests.html'"><i class="ri-history-line"></i> Donation Requests</li>
+            <li onclick="window.location.href='donor-live-tracking.html'"><i class="ri-truck-line"></i> Pickup Requests</li>
+            <li onclick="window.location.href='donor-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li class="active" onclick="window.location.href='donor-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'" style="color: #e74c3c;"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Account <span class="highlight-text">Settings</span></h1>
+                <p>Update your personal details and preferences.</p>
+            </div>
+            <div class="header-actions">
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=Yogendar&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <div class="glass-box" style="max-width: 600px; padding: 40px;">
+            <h2 style="margin-bottom: 25px;">Donor Profile</h2>
+            
+            <form id="settingsForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Full Name</label>
+                    <input type="text" id="donorName" value="Yogendar" required style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Email Address</label>
+                    <input type="email" id="donorEmail" value="yogendar@example.com" required style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Primary Address</label>
+                    <input type="text" id="donorLocation" value="123 Donor Street, City" required style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+
+                <button type="submit" class="btn-primary w-full" style="justify-content: center; width: 100%;"><i class="ri-save-line"></i> Save Changes</button>
+            </form>
+        </div>
+
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Just simulate saving with a toast notification
+            showToast("✅ Settings saved successfully!");
+        });
+    </script>
+</body>
+</html>

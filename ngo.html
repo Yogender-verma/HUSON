@@ -3,67 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NGO Page | HUSON</title>
-    <link rel="stylesheet" href="donor.css">
+    <title>NGO Dashboard | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body>
+<body class="app-layout">
 
-<header>
-    <h1>NGO Dashboard</h1>
-    <p>Submit requests and manage incoming donations.</p>
-</header>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li class="active" onclick="window.location.href='ngo.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='ngo-all-donations.html'"><i class="ri-gift-line"></i> Available Donations</li>
+            <li onclick="window.location.href='ngo-pending-requests.html'"><i class="ri-file-list-3-line"></i> My Requests</li>
+            <li onclick="window.location.href='ngo-live-tracking.html'"><i class="ri-truck-line"></i> Pickups</li>
+            <li onclick="window.location.href='ngo-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
 
-<div class="donor-container">
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='ngo-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
 
-    <!-- Left side: NGO Request Form -->
-    <div class="donor-left glass-box">
-        <form id="ngoForm">
-            <h2>Submit a Request</h2>
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Welcome back, <span class="highlight-text">Urban Care NGO</span></h1>
+                <p>Here is your daily surplus optimization summary.</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search surplus...">
+                </div>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=NGO&background=9b51e0&color=fff" alt="Avatar"></div>
+                <button class="btn-primary" onclick="window.location.href='ngo-new-request.html'">+ New Request</button>
+            </div>
+        </header>
 
-            <input type="text" id="ngoName" placeholder="Your NGO Name" required>
-
-            <select id="requestItem" required>
-                <option value="">Select Item Type</option>
-                <option value="Food">Food</option>
-                <option value="Clothes">Clothes</option>
-                <option value="Books">Books</option>
-                <option value="Medicine">Medicine</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <input type="number" id="requestQuantity" placeholder="Quantity" min="1" required>
-
-            <input type="text" id="requestLocation" placeholder="Enter Location or Detect">
-            <button type="button" id="requestLocationBtn" class="btn-submit">📍 Detect Location</button>
-
-            <textarea id="requestNotes" rows="3" placeholder="Additional Notes"></textarea>
-
-            <button type="submit" class="btn-submit">Submit Request</button>
-            <button type="button" class="btn-back" id="ngoBackBtn">← Back</button>
-        </form>
-    </div>
-
-    <!-- Right side: Donations for NGO -->
-    <div class="donor-right glass-box">
-        <h2>Available Donations</h2>
-
-        <div class="filters">
-            <input type="text" id="searchInput" placeholder="Search by donor or location...">
-            <select id="sortSelect">
-                <option value="recent">Sort by: Most Recent</option>
-                <option value="item">Sort by: Item Type</option>
-                <option value="location">Sort by: Location</option>
-            </select>
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-box glass-box" style="cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="window.location.href='all-donations.html'">
+                <div class="stat-top">
+                    <div class="stat-icon" style="color: #4facfe; background: rgba(79,172,254,0.1);"><i class="ri-gift-line"></i></div>
+                    <div class="stat-badge success">+12% vs last week</div>
+                </div>
+                <h2>5</h2>
+                <p>Available Donations</p>
+            </div>
+            <div class="stat-box glass-box" style="cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="window.location.href='pending-requests.html'">
+                <div class="stat-top">
+                    <div class="stat-icon" style="color: #ff9a9e; background: rgba(255,154,158,0.1);"><i class="ri-history-line"></i></div>
+                    <div class="stat-badge warning">-2%</div>
+                </div>
+                <h2>3</h2>
+                <p>Pending Requests</p>
+            </div>
+            <div class="stat-box glass-box" style="cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="window.location.href='ngo-live-tracking.html'">
+                <div class="stat-top">
+                    <div class="stat-icon" style="color: #f6d365; background: rgba(246,211,101,0.1);"><i class="ri-truck-line"></i></div>
+                    <div class="stat-badge info">Target: 10</div>
+                </div>
+                <h2>5</h2>
+                <p>Completed Pickups</p>
+            </div>
+            <div class="stat-box glass-box">
+                <div class="stat-top">
+                    <div class="stat-icon" style="color: #ff66c4; background: rgba(255,102,196,0.1);"><i class="ri-restaurant-line"></i></div>
+                    <div class="stat-badge primary">New milestone!</div>
+                </div>
+                <h2>1,240</h2>
+                <p>Items Received</p>
+            </div>
         </div>
 
-        <div id="ngoRequestsList"></div>
-    </div>
-</div>
+        <div class="section-title">
+            <h3>Nearby Donations</h3>
+            <a href="#">View all <i class="ri-arrow-right-line"></i></a>
+        </div>
 
-<footer class="glass-box" style="margin-top:30px;">
-    <button id="darkToggle">🌙 Dark Mode</button>
-</footer>
+        <!-- Nearby Donations Grid -->
+        <div class="nearby-grid">
+            <div class="img-card glass-box">
+                <div class="img-wrap">
+                    <img src="img/apples.png" alt="Fresh Apples">
+                    <span class="img-badge"><i class="ri-timer-line"></i> 1h 30m left</span>
+                </div>
+                <div class="img-content">
+                    <div class="img-row">
+                        <div>
+                            <h4>Sunrise Orchards</h4>
+                            <p>Fresh Red Apples</p>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="primary-text">20 kg</h4>
+                            <p>1.2 km</p>
+                        </div>
+                    </div>
+                    <div class="img-location"><i class="ri-map-pin-line"></i> 18 Valley Road, Suburbs</div>
+                    <div class="img-actions">
+                        <button class="btn-primary w-full">Request Pickup</button>
+                        <button class="btn-secondary btn-icon"><i class="ri-information-line"></i></button>
+                    </div>
+                </div>
+            </div>
 
-<script src="ngo.js"></script>
+            <div class="img-card glass-box">
+                <div class="img-wrap">
+                    <img src="img/clothes.png" alt="Clothes Donation">
+                    <span class="img-badge"><i class="ri-timer-line"></i> No expiry</span>
+                </div>
+                <div class="img-content">
+                    <div class="img-row">
+                        <div>
+                            <h4>Community Center</h4>
+                            <p>Assorted Winter Wear</p>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="primary-text">35 items</h4>
+                            <p>3.0 km</p>
+                        </div>
+                    </div>
+                    <div class="img-location"><i class="ri-map-pin-line"></i> 402 Pine Street, West End</div>
+                    <div class="img-actions">
+                        <button class="btn-primary w-full">Request Pickup</button>
+                        <button class="btn-secondary btn-icon"><i class="ri-information-line"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>

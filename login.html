@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | HUSON</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    body {
+        justify-content: center;
+        align-items: center;
+    }
+    .login-container {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        padding: 50px 40px;
+        border-radius: 24px;
+        text-align: center;
+        width: 90%;
+        max-width: 450px;
+        box-shadow: var(--glass-shadow);
+    }
+    .login-container h2 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+    .login-container p {
+        color: var(--text-muted);
+        margin-bottom: 35px;
+    }
+    .role-btn {
+        display: block;
+        width: 100%;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: #fff;
+        padding: 18px;
+        border-radius: 16px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 15px;
+        font-family: 'Outfit', sans-serif;
+    }
+    .role-btn:hover {
+        background: var(--glass-hover-bg);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        border-color: #9b51e0;
+    }
+    .btn-back-home {
+        margin-top: 25px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-back-home:hover {
+        color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Welcome</h2>
+    <p>Select your role to continue</p>
+    
+    <button class="role-btn" onclick="window.location.href='donor.html'">Sign in as Donor</button>
+    <button class="role-btn" onclick="window.location.href='ngo.html'">Sign in as NGO</button>
+    
+    <a href="index.html" class="btn-back-home">&larr; Back to Home</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

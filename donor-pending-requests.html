@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Requests | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='donor.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='donor-donation.html'"><i class="ri-hand-heart-line"></i> Donate</li>
+            <li class="active" onclick="window.location.href='donor-pending-requests.html'"><i class="ri-history-line"></i> Donation Requests</li>
+            <li onclick="window.location.href='donor-live-tracking.html'"><i class="ri-truck-line"></i> Pickup Requests</li>
+            <li onclick="window.location.href='donor-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='donor-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'" style="color: #e74c3c;"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Pending <span class="highlight-text">Requests</span></h1>
+                <p>Track the status of the supplies you have requested.</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search requests...">
+                </div>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=Yogendar&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+            <!-- Request 1 -->
+            <div class="dash-card glass-box">
+                <div class="dash-card-header">
+                    <h3>City Hope Shelter</h3>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <p style="margin: 5px 0; color: var(--text-color);"><strong>Product:</strong> Blankets & Winter Jackets</p>
+                    <p style="margin: 5px 0; color: var(--warning-color);"><strong>Quantity:</strong> 50 units</p>
+                </div>
+                <button class="btn-primary w-full" onclick="showToast('Request Accepted!')">Accept Request</button>
+            </div>
+
+            <!-- Request 2 -->
+            <div class="dash-card glass-box">
+                <div class="dash-card-header">
+                    <h3>Green Valley NGO</h3>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <p style="margin: 5px 0; color: var(--text-color);"><strong>Product:</strong> Raw Vegetables (Potatoes, Onions)</p>
+                    <p style="margin: 5px 0; color: var(--warning-color);"><strong>Quantity:</strong> 100 kg</p>
+                </div>
+                <button class="btn-primary w-full" onclick="showToast('Request Accepted!')">Accept Request</button>
+            </div>
+
+            <!-- Request 3 -->
+            <div class="dash-card glass-box">
+                <div class="dash-card-header">
+                    <h3>St. Jude Community</h3>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <p style="margin: 5px 0; color: var(--text-color);"><strong>Product:</strong> First Aid Kits & Paracetamol</p>
+                    <p style="margin: 5px 0; color: var(--warning-color);"><strong>Quantity:</strong> 20 boxes</p>
+                </div>
+                <button class="btn-primary w-full" onclick="showToast('Request Accepted!')">Accept Request</button>
+            </div>
+
+            <!-- Request 4 -->
+            <div class="dash-card glass-box">
+                <div class="dash-card-header">
+                    <h3>Hope Foundation</h3>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <p style="margin: 5px 0; color: var(--text-color);"><strong>Product:</strong> Cooked Meals (Rice & Lentils)</p>
+                    <p style="margin: 5px 0; color: var(--warning-color);"><strong>Quantity:</strong> 150 meals</p>
+                </div>
+                <button class="btn-primary w-full" onclick="showToast('Request Accepted!')">Accept Request</button>
+            </div>
+
+            <!-- Request 5 -->
+            <div class="dash-card glass-box">
+                <div class="dash-card-header">
+                    <h3>Care & Share Society</h3>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <p style="margin: 5px 0; color: var(--text-color);"><strong>Product:</strong> School Supplies (Notebooks, Pens)</p>
+                    <p style="margin: 5px 0; color: var(--warning-color);"><strong>Quantity:</strong> 200 sets</p>
+                </div>
+                <button class="btn-primary w-full" onclick="showToast('Request Accepted!')">Accept Request</button>
+            </div>
+        </div>
+
+
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Request | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='ngo.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='ngo-all-donations.html'"><i class="ri-gift-line"></i> Available Donations</li>
+            <li onclick="window.location.href='ngo-pending-requests.html'"><i class="ri-file-list-3-line"></i> My Requests</li>
+            <li onclick="window.location.href='ngo-live-tracking.html'"><i class="ri-truck-line"></i> Pickups</li>
+            <li onclick="window.location.href='ngo-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='ngo-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Submit a <span class="highlight-text">New Request</span></h1>
+                <p>Broadcast your needs to donors in your area.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" onclick="window.location.href='ngo.html'"><i class="ri-arrow-left-line"></i> Back</button>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=NGO&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <div class="glass-box" style="max-width: 600px; margin: 40px auto; padding: 40px;">
+            <h2 style="margin-bottom: 25px;">What does your NGO need?</h2>
+            
+            <form id="newRequestPageForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Item Requested</label>
+                    <input type="text" id="reqItem" placeholder="What do you need? (e.g. Rice, Blankets)" required style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Quantity & Units</label>
+                    <input type="text" id="reqQuantity" placeholder="Quantity (e.g. 50 kg, 10 liters)" required style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Delivery Location / Branch</label>
+                    <input type="text" id="reqLocation" placeholder="Enter Location" style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Additional Notes</label>
+                    <textarea id="reqNotes" rows="4" placeholder="Any specific requirements?" style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary w-full" style="justify-content: center; width: 100%;">Submit Request</button>
+            </form>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('newRequestPageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const item = document.getElementById('reqItem').value;
+            const qty = document.getElementById('reqQuantity').value;
+            const notes = document.getElementById('reqNotes').value;
+            
+            const newReqObj = {
+                img: null, // Will render the box icon fallback in pending-requests.html
+                badge: "Just Added",
+                name: item,
+                desc: notes || "Newly submitted request",
+                weight: qty,
+                date: "Requested Just Now"
+            };
+
+            // Save to localStorage
+            let savedRequests = JSON.parse(localStorage.getItem('myCustomRequests')) || [];
+            savedRequests.unshift(newReqObj); // add to top
+            localStorage.setItem('myCustomRequests', JSON.stringify(savedRequests));
+
+            // Redirect to My Requests page
+            window.location.href = 'pending-requests.html';
+        });
+    </script>
+</body>
+</html>

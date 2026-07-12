@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Tracking | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='donor.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='donor-donation.html'"><i class="ri-hand-heart-line"></i> Donate</li>
+            <li onclick="window.location.href='donor-pending-requests.html'"><i class="ri-history-line"></i> Donation Requests</li>
+            <li class="active" onclick="window.location.href='donor-live-tracking.html'"><i class="ri-truck-line"></i> Pickup Requests</li>
+            <li onclick="window.location.href='donor-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='donor-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'" style="color: #e74c3c;"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Live <span class="highlight-text">Tracking</span></h1>
+                <p>Track your active delivery from donor to your location.</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Tracking ID (e.g. TRK-892)">
+                </div>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=Yogendar&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem; border-color: var(--accent-color); color: var(--accent-color);">All Pickups (10)</button>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Picked Up (5)</button>
+            <button class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Pickup Confirmed (5)</button>
+        </div>
+
+        <div id="trackingList" style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- 10 Tracking Cards will be injected here -->
+        </div>
+
+    </main>
+
+    <!-- Toast for Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script>
+        const pickups = [
+            { id: "TRK-101", item: "Oil", status: "Picked Up", to: "Local NGO" },
+            { id: "TRK-102", item: "Tomato", status: "Picked Up", to: "City Harvest" },
+            { id: "TRK-103", item: "Dry Fruits", status: "Picked Up", to: "Hope Center" },
+            { id: "TRK-104", item: "T-Shirts", status: "Picked Up", to: "Community Center" },
+            { id: "TRK-105", item: "Chairs", status: "Picked Up", to: "Shelter Home" },
+            { id: "TRK-106", item: "Spectacles", status: "Pickup Confirmed", to: "Vision Care" },
+            { id: "TRK-107", item: "Fruits", status: "Pickup Confirmed", to: "Orchard Hill" },
+            { id: "TRK-108", item: "Vegetables", status: "Pickup Confirmed", to: "City Harvest" },
+            { id: "TRK-109", item: "Shirts", status: "Pickup Confirmed", to: "Community Center" },
+            { id: "TRK-110", item: "Pants", status: "Pickup Confirmed", to: "Thrift Shop" }
+        ];
+
+        const listContainer = document.getElementById("trackingList");
+
+        pickups.forEach(pickup => {
+            let timelineHTML = "";
+            let badgeHTML = "";
+
+            if (pickup.status === "Picked Up") {
+                badgeHTML = `<span class="status-badge info-bg" style="display:inline-block; margin-bottom: 5px;">Picked Up</span>`;
+                timelineHTML = `
+                    <div class="timeline-item completed">
+                        <div class="timeline-content"><h4>Pickup Confirmed</h4><p>You accepted the request.</p></div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-content"><h4>Items Picked Up</h4><p>Driver collected the items.</p></div>
+                    </div>
+                `;
+            } else {
+                badgeHTML = `<span class="status-badge warning-bg" style="display:inline-block; margin-bottom: 5px;">Pickup Confirmed</span><p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Awaiting Driver</p>`;
+                timelineHTML = `
+                    <div class="timeline-item active">
+                        <div class="timeline-content"><h4>Pickup Confirmed</h4><p>You accepted the request. Awaiting pickup.</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content"><h4>Items Picked Up</h4><p>Pending collection.</p></div>
+                    </div>
+                `;
+            }
+
+            const driverHTML = pickup.status === "Picked Up" ? `
+                <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <img src="https://ui-avatars.com/api/?name=Driver&background=3498db&color=fff" style="width: 40px; height: 40px; border-radius: 50%;" alt="Driver">
+                        <div>
+                            <h4 style="margin: 0; color: #fff;">Volunteer Driver</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">4.9 ★</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" style="border-radius: 50%; width: 35px; height: 35px; padding: 0;"><i class="ri-phone-fill"></i></button>
+                    </div>
+                </div>
+            ` : "";
+
+            const cardHTML = `
+                <div class="tracking-container glass-box" style="padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 10px;">
+                        <div>
+                            <h3 style="margin: 0 0 5px 0;">${pickup.id} - <span style="color: var(--primary-color);">${pickup.item}</span></h3>
+                            <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">To: <strong>${pickup.to}</strong></p>
+                        </div>
+                        <div style="text-align: right;">
+                            ${badgeHTML}
+                        </div>
+                    </div>
+                    
+                    <div class="timeline" style="margin-top: 20px; margin-bottom: 0;">
+                        ${timelineHTML}
+                    </div>
+
+                    ${driverHTML}
+                </div>
+            `;
+            listContainer.innerHTML += cardHTML;
+        });
+    </script>
+</body>
+</html>

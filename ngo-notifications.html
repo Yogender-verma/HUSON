@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | HUSON</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .notification-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .notification-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: background 0.3s;
+        }
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .notification-item.unread {
+            background: rgba(79, 172, 254, 0.05);
+            border-left: 3px solid var(--accent-color);
+        }
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .icon-transit { background: rgba(79, 172, 254, 0.1); color: #4facfe; }
+        .icon-confirmed { background: rgba(246, 211, 101, 0.1); color: #f6d365; }
+        
+        .notification-content h4 {
+            margin: 0 0 5px 0;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+        .notification-content p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            margin-top: 8px;
+            display: block;
+        }
+    </style>
+</head>
+<body class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="ri-heart-pulse-line"></i> HUSON
+        </div>
+        <div class="sidebar-subtitle">Impact Dashboard</div>
+        
+                <ul class="sidebar-nav">
+            <li onclick="window.location.href='ngo.html'"><i class="ri-dashboard-line"></i> Dashboard</li>
+            <li onclick="window.location.href='ngo-all-donations.html'"><i class="ri-gift-line"></i> Available Donations</li>
+            <li onclick="window.location.href='ngo-pending-requests.html'"><i class="ri-file-list-3-line"></i> My Requests</li>
+            <li onclick="window.location.href='ngo-live-tracking.html'"><i class="ri-truck-line"></i> Pickups</li>
+            <li class="active" onclick="window.location.href='ngo-notifications.html'"><i class="ri-notification-3-line"></i> Notifications</li>
+        </ul>
+
+                <ul class="sidebar-bottom">
+            <li onclick="window.location.href='ngo-settings.html'"><i class="ri-settings-4-line"></i> Settings</li>
+            <li onclick="window.location.href='index.html'"><i class="ri-logout-box-r-line"></i> Logout</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-text">
+                <h1>Your <span class="highlight-text">Notifications</span></h1>
+                <p>Stay updated on your active requests and inbound deliveries.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" style="margin-right: 15px;"><i class="ri-check-double-line"></i> Mark all as read</button>
+                <div class="avatar"><img src="https://ui-avatars.com/api/?name=NGO&background=9b51e0&color=fff" alt="Avatar"></div>
+            </div>
+        </header>
+
+        <div class="glass-box" style="padding: 0;">
+            <ul class="notification-list">
+                
+                <li class="notification-item unread">
+                    <div class="notification-icon icon-transit"><i class="ri-truck-line"></i></div>
+                    <div class="notification-content">
+                        <h4>Driver Assigned: Cooking Oil</h4>
+                        <p>Volunteer driver Michael S. has been assigned to pick up your request for <strong>Cooking Oil</strong> (TRK-101).</p>
+                        <span class="notification-time">10 mins ago</span>
+                    </div>
+                </li>
+
+                <li class="notification-item unread">
+                    <div class="notification-icon icon-transit"><i class="ri-truck-line"></i></div>
+                    <div class="notification-content">
+                        <h4>Items Picked Up: Tomato</h4>
+                        <p>Your pickup for <strong>Tomato</strong> (TRK-102) from Farm Fresh has been collected and is in transit.</p>
+                        <span class="notification-time">25 mins ago</span>
+                    </div>
+                </li>
+
+                <li class="notification-item unread">
+                    <div class="notification-icon icon-confirmed"><i class="ri-check-line"></i></div>
+                    <div class="notification-content">
+                        <h4>Pickup Confirmed: Spectacles</h4>
+                        <p>Vision Care has accepted your request for <strong>Spectacles</strong> (TRK-106). We are currently searching for a volunteer driver.</p>
+                        <span class="notification-time">1 hour ago</span>
+                    </div>
+                </li>
+
+                <li class="notification-item">
+                    <div class="notification-icon icon-transit"><i class="ri-truck-line"></i></div>
+                    <div class="notification-content">
+                        <h4>In Transit: Dry Fruits</h4>
+                        <p>Your delivery of <strong>Dry Fruits</strong> (TRK-103) is on its way. Track it live on the Pickups page.</p>
+                        <span class="notification-time">2 hours ago</span>
+                    </div>
+                </li>
+
+                <li class="notification-item">
+                    <div class="notification-icon icon-confirmed"><i class="ri-check-line"></i></div>
+                    <div class="notification-content">
+                        <h4>Pickup Confirmed: Fruits</h4>
+                        <p>Orchard Hill has confirmed your request for <strong>Fruits</strong> (TRK-107). Please standby for driver assignment.</p>
+                        <span class="notification-time">3 hours ago</span>
+                    </div>
+                </li>
+                
+                <li class="notification-item">
+                    <div class="notification-icon icon-confirmed"><i class="ri-check-line"></i></div>
+                    <div class="notification-content">
+                        <h4>Pickup Confirmed: Vegetables</h4>
+                        <p>City Harvest has accepted your request for <strong>Vegetables</strong> (TRK-108). We are currently searching for a volunteer driver.</p>
+                        <span class="notification-time">Yesterday</span>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
